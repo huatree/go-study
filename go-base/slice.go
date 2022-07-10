@@ -43,4 +43,14 @@ func main() {
   fmt.Println(s1[3:6]) //  s1= [2 3 4 5] => [5 6 7]
   // slice可以向后扩展，不可以向前扩展
   // s[i]不可以超越len(s)，向后扩展不可以超越底层数组cap(s)
+
+  // 向slice添加元素 s = append(s, val)
+  s3 := append(s2, 10)
+  s4 := append(s3, 11)
+  s5 := append(s4, 12)
+  fmt.Println("s3, s4, s5=", s3, s4, s5) // s3, s4, s5= [5 6 10] [5 6 10 11] [5 6 10 11 12]
+  // s4 and s5 no longer view arr.
+  // 添加元素时如果超越cap, 系统会重新分配更大的底层数组
+  // 由于值传递的关系，必须接收append的返回值
+  fmt.Println("arr=", arr)
 }
