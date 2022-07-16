@@ -11,6 +11,9 @@ func main() {
     "quality": "notbad",
   }
 
+  // len 获取元素个数
+  fmt.Println(len(m))
+
   m2 := make(map[string]int) // m2 == empty map
 
   var m3 map[string]int // m3 == nil
