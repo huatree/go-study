@@ -1,13 +1,15 @@
 // 寻找最长不含有重复字符的子串
 package main
 
-import "fmt"
+import (
+  "fmt"
+)
 
 func lengthOfNonRepeatingSubStr(s string) int {
-  lastOccured := make(map[byte]int)
+  lastOccured := make(map[rune]int)
   start := 0
   maxLength := 0
-  for i, ch := range []byte(s) {
+  for i, ch := range []rune(s) {
     if lastI, ok := lastOccured[ch]; ok && lastI >= start {
       start = lastI + 1
     }
@@ -28,6 +30,13 @@ func main() {
   fmt.Println(lengthOfNonRepeatingSubStr("b"))
   fmt.Println(lengthOfNonRepeatingSubStr("abcdef"))
   // 因为byte，所以该例子不支持中文字符
-  // fmt.Println(lengthOfNonRepeatingSubStr("这里是学习战场"))
-  // fmt.Println(lengthOfNonRepeatingSubStr("一二三二一"))
+  fmt.Println(lengthOfNonRepeatingSubStr("这里是学习战场"))
+  fmt.Println(lengthOfNonRepeatingSubStr("一二三二一"))
 }
+
+// 其他字符串操作
+// strings包：
+// Fields, Split, Join
+// Contains, Index
+// ToLower, ToUpper
+// Trim, TrimRight, TrimLeft
