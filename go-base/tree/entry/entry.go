@@ -5,37 +5,43 @@ import (
   "go-study/go-base/tree"
 )
 
-// 使用组合
+// 使用组合：最常用
 type myTreeNode struct {
-  node *tree.Node
+  *tree.Node // 内嵌(语法糖，新手不友好)
 }
 
 func (myNode *myTreeNode) postOrder() {
-  if myNode == nil || myNode.node == nil {
+  if myNode == nil || myNode.Node == nil {
     return
   }
-  left := myTreeNode{myNode.node.Left}
-  right := myTreeNode{myNode.node.Right}
+  left := myTreeNode{myNode.Left}
+  right := myTreeNode{myNode.Right}
   left.postOrder()
   right.postOrder()
-  myNode.node.Print()
+  myNode.Print()
+}
+
+/**
+ * @description: 底层同名函数，就近原则
+ * @return {*}
+ */
+func (myNode *myTreeNode) Traverse() {
+  fmt.Println("This method is shadowed")
 }
 
 func main() {
-  var root tree.Node
-
-  root = tree.Node{Value: 3}
+  root := myTreeNode{&tree.Node{Value: 3}}
   root.Left = &tree.Node{}
   root.Right = &tree.Node{Value: 5, Left: nil, Right: nil}
   root.Right.Left = new(tree.Node)
   root.Left.Right = tree.CreateNode(2)
   root.Right.Left.SetValue(4)
 
-  root.Traverse() // 0 2 3 4 5
+  root.Traverse()      // This method is shadowed
+  root.Node.Traverse() // 0 2 3 4 5
   fmt.Println()
 
-  myRoot := myTreeNode{&root}
-  myRoot.postOrder() // 2 0 4 5 3
+  root.postOrder() // 2 0 4 5 3
   fmt.Println()
 }
 
