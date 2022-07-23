@@ -1,6 +1,25 @@
 package main
 
-import "go-study/go-base/tree"
+import (
+  "fmt"
+  "go-study/go-base/tree"
+)
+
+// 使用组合
+type myTreeNode struct {
+  node *tree.Node
+}
+
+func (myNode *myTreeNode) postOrder() {
+  if myNode == nil || myNode.node == nil {
+    return
+  }
+  left := myTreeNode{myNode.node.Left}
+  right := myTreeNode{myNode.node.Right}
+  left.postOrder()
+  right.postOrder()
+  myNode.node.Print()
+}
 
 func main() {
   var root tree.Node
@@ -12,7 +31,12 @@ func main() {
   root.Left.Right = tree.CreateNode(2)
   root.Right.Left.SetValue(4)
 
-  root.Traverse()
+  root.Traverse() // 0 2 3 4 5
+  fmt.Println()
+
+  myRoot := myTreeNode{&root}
+  myRoot.postOrder() // 2 0 4 5 3
+  fmt.Println()
 }
 
 // 注意
@@ -32,3 +56,8 @@ func main() {
 // main包包含可执行入口
 // 为结构定义的方法必须放在同一个包内
 // 可以是不同文件
+
+// 如何扩充系统类型或者别人的类型
+//
+// 定义别名
+// 使用组合
