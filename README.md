@@ -76,6 +76,13 @@ Go 插件
 
 前面2个逐渐被淘汰。
 
+由go命令统一管理，用户不必关心目录结构
+
+- 初始化：go mod init
+- 增加依赖：go get
+- 更新依赖：go get [@v...], go mod tidy
+- 将旧项目迁移到go mod：go mod init, go build ./...
+
 ## 参考
 
 [1] [Golang Documentation](https://golang.google.cn/doc/)
@@ -87,3 +94,5 @@ Go 插件
 [4] [8 小时转职 Golang 工程师(如果你想低成本学习 Go 语言](https://www.bilibili.com/video/BV1gf4y1r79E?from=search&seid=14989564876573827402&spm_id_from=333.337.0.0)
 
 [5] [Go 语言文档](https://www.topgoer.com/)
+
+[6] [一文搞懂Go语言的最新依赖管理：go mod的使用](https://blog.csdn.net/Sihang_Xie/article/details/124851399)
