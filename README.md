@@ -51,6 +51,31 @@ Go 插件
 
 首次写入`.go`文件，引入的依赖库，如需访问，根据 VSCode 的提示下载对应的 Go 插件。
 
+## 依赖管理
+
+### 三个阶段
+
+#### GOPATH
+
+- GO111MODULE=off
+
+- 默认在`~/go`(unix,linux)，`%USERPROFILE%\go`(windows)
+
+- 必须都放在`src`目录下。
+
+怎么解决版本问题？
+
+在项目中创建`vendor`目录，就近原则查找依赖。
+
+#### GOVENDOR
+
+- 每个项目有自己的`vendor`目录，存放第三方库
+- 大量第三方依赖管理工具：[glide](https://github.com/Masterminds/glide)，dep，go dep，...
+
+#### GOMOD(推荐)
+
+前面2个逐渐被淘汰。
+
 ## 参考
 
 [1] [Golang Documentation](https://golang.google.cn/doc/)
