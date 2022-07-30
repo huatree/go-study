@@ -45,7 +45,8 @@ func main() {
   // fmt.Println(download(mock.Retriever{Contents: "this is a fake baidu.com"}))
   var r Retriever
 
-  retriever := &mock.Retriever{Contents: "this is a fake baidu.com"}
+  retriever := mock.Retriever{Contents: "this is a fake baidu.com"}
+  r = &retriever
   inspect(r)
 
   r = &real.Retriever{
@@ -64,12 +65,13 @@ func main() {
   }
 
   fmt.Println("Try a session")
-  fmt.Println(session(retriever))
+  fmt.Println(session(&retriever))
 }
 
 func inspect(r Retriever) {
+  fmt.Println("Inspecting", r)
   fmt.Printf("%T %v\n", r, r)
-  fmt.Println("Type switch:")
+  fmt.Print("Type switch:")
   //? r.(type)
   switch v := r.(type) {
   case *mock.Retriever:
