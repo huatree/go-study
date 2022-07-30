@@ -83,6 +83,12 @@ Go 插件
 - 更新依赖：go get [@v...], go mod tidy
 - 将旧项目迁移到go mod：go mod init, go build ./...
 
+## 目录整理
+
+一个包只能又一个main入口函数
+
+> go-base目录下的文件作为demo使用（不规范的），实际使用必须一个包只能有一个main入口函数。
+
 ## 参考
 
 [1] [Golang Documentation](https://golang.google.cn/doc/)
