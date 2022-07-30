@@ -11,15 +11,41 @@ type Retriever interface {
   Get(url string) string
 }
 
+type Poster interface {
+  Post(url string, form map[string]string) string
+}
+
+const url = "http://www.baidu.com"
+
 func download(r Retriever) string {
-  return r.Get("http://www.baidu.com")
+  return r.Get(url)
+}
+
+func post(p Poster) {
+  p.Post(url, map[string]string{
+    "name":  "huatree",
+    "study": "golang",
+  })
+}
+
+type RetrieverPoster interface {
+  Retriever
+  Poster
+  // 当然还可以定义其他方法
+}
+
+func session(s RetrieverPoster) string {
+  s.Post(url, map[string]string{
+    "contents": "another faked baidu.com",
+  })
+  return s.Get(url)
 }
 
 func main() {
   // fmt.Println(download(mock.Retriever{Contents: "this is a fake baidu.com"}))
   var r Retriever
 
-  r = &mock.Retriever{Contents: "this is a fake baidu.com"}
+  retriever := &mock.Retriever{Contents: "this is a fake baidu.com"}
   inspect(r)
 
   r = &real.Retriever{
@@ -31,11 +57,14 @@ func main() {
   // fmt.Println(download(r))
 
   // Type assertion
-  if mockRetriever, ok := r.(mock.Retriever); ok {
+  if mockRetriever, ok := r.(*mock.Retriever); ok {
     fmt.Println(mockRetriever.Contents)
   } else {
     fmt.Println("not a mock retriever")
   }
+
+  fmt.Println("Try a session")
+  fmt.Println(session(retriever))
 }
 
 func inspect(r Retriever) {
@@ -43,7 +72,7 @@ func inspect(r Retriever) {
   fmt.Println("Type switch:")
   //? r.(type)
   switch v := r.(type) {
-  case mock.Retriever:
+  case *mock.Retriever:
     fmt.Println("Contents:", v.Contents)
   case *real.Retriever:
     fmt.Println("UserAgent:", v.UserAgent)
@@ -65,4 +94,8 @@ func inspect(r Retriever) {
 - 表示任何类型: interface{}
 - Type Assertion
 - Type Switch
+
+## 接口组合
+
+如 io.ReadWriter 组合接口
 */
