@@ -4,6 +4,7 @@ import (
   "fmt"
   "go-middle/interface/retriever/mock"
   "go-middle/interface/retriever/real"
+  "time"
 )
 
 type Retriever interface {
@@ -18,6 +19,11 @@ func main() {
   // fmt.Println(download(mock.Retriever{Contents: "this is a fake baidu.com"}))
   var r Retriever
   r = mock.Retriever{Contents: "this is a fake baidu.com"}
-  r = real.Retriever{}
-  fmt.Println(download(r))
+  fmt.Printf("%T %v\n", r, r)
+  r = real.Retriever{
+    UserAgent: "Mozilla/5.0",
+    TimeOut:   time.Minute,
+  }
+  fmt.Printf("%T %v\n", r, r)
+  // fmt.Println(download(r))
 }
